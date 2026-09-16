@@ -1,0 +1,3 @@
+print(np.mgrid[0:9., 0:6.])
+print(np.meshgrid(np.r_[0:9.], np.r_[0:6.]))
+

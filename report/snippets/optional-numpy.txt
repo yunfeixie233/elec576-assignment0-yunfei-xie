@@ -1,0 +1,15 @@
+Pairwise distances:
+[[0. 5. 4.]
+ [5. 0. 3.]
+ [4. 3. 0.]]
+Column means:
+[1.       2.666667]
+Rows whose distance from the origin is at least four:
+[[3. 4.]
+ [0. 4.]]
+Array after changing a slice:
+[[ 0 99  2]
+ [ 3  4  5]]
+Independent copy:
+[[1 2]
+ [4 5]]

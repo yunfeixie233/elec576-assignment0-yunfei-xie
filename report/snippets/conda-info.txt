@@ -1,0 +1,33 @@
+
+     active environment : base
+    active env location : /Users/xieyunfei/anaconda3
+            shell level : 1
+       user config file : /Users/xieyunfei/.condarc
+ populated config files : /Users/xieyunfei/anaconda3/.condarc
+                          /Users/xieyunfei/anaconda3/condarc.d/anaconda-auth.yml
+          conda version : 26.5.3
+    conda-build version : 26.5.0
+         python version : 3.14.6.final.0
+                 solver : libmamba (default)
+       virtual packages : __archspec=1=m3
+                          __conda=26.5.3=0
+                          __osx=15.5=0
+                          __unix=0=0
+       base environment : /Users/xieyunfei/anaconda3  (writable)
+      conda av data dir : /Users/xieyunfei/anaconda3/etc/conda
+  conda av metadata url : None
+           channel URLs : https://repo.anaconda.com/pkgs/main/osx-arm64
+                          https://repo.anaconda.com/pkgs/main/noarch
+                          https://repo.anaconda.com/pkgs/r/osx-arm64
+                          https://repo.anaconda.com/pkgs/r/noarch
+          package cache : /Users/xieyunfei/anaconda3/pkgs
+                          /Users/xieyunfei/.conda/pkgs
+       envs directories : /Users/xieyunfei/anaconda3/envs
+                          /Users/xieyunfei/.conda/envs
+    temporary directory : /var/folders/6x/_frh7f2s0jg3v0pbd3985njc0000gn/T
+               platform : osx-arm64
+             user-agent : conda/26.5.3 requests/2.34.2 CPython/3.14.6 Darwin/24.5.0 OSX/15.5 solver/libmamba conda-libmamba-solver/26.7.0 libmambapy/2.3.2 aau/0.8.1 c/. s/. e/.
+                UID:GID : 501:20
+             netrc file : None
+           offline mode : False
+

@@ -9,7 +9,7 @@ Yunfei Xie (yx106), Fall 2026.
 - [Assignment questions](questions/ELEC576_Assignment_0-1.pdf)
 - [Executed notebook](notebooks/assignment0.ipynb)
 
-The report covers all six tasks and optional NumPy practice. It includes the code and output for all 82 rows of the required table.
+The report covers all six tasks, including code and output for all 82 table rows, plus optional NumPy practice. Submit the report PDF on Canvas.
 
 ## Run the code
 
@@ -28,7 +28,7 @@ conda env create -f environment.yml
 conda activate elec576-assignment0
 ~~~
 
-Open this folder in Visual Studio Code or JupyterLab and select that environment. The runner replaces the generated notebook, results, and figures. The two captured TypeError messages demonstrate outdated calls in the NumPy table; working calls follow them.
+Open this folder in Visual Studio Code or JupyterLab and select that environment. The runner replaces the generated notebook, results, and figures. The two captured TypeError messages come from invalid calls in the NumPy table; working calls follow them.
 
 Python examples are in src/, captured outputs in results/, and plots in figures/. The report keeps its own copies of the submitted code snippets and figures.
 
@@ -47,4 +47,4 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error ELEC576_Assignment_0_Yunfei
 - [SciPy documentation](https://docs.scipy.org/doc/scipy/reference/)
 - [Matplotlib tutorial](https://matplotlib.org/stable/tutorials/pyplot.html)
 - [Stanford NumPy tutorial](https://cs231n.github.io/python-numpy-tutorial/)
-- [Reference assignment](https://github.com/ZengChen94/Introduction-to-Deep-Learning/tree/master/Assignment%200), consulted after writing the original implementation to compare task coverage and outputs.
+- [Reference assignment](https://github.com/ZengChen94/Introduction-to-Deep-Learning/tree/master/Assignment%200), used to compare task coverage and outputs.

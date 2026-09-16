@@ -162,7 +162,7 @@
       "row": 27,
       "title": "Select columns using a Boolean mask",
       "code": "a = threshold.copy()\nv = np.array([0.3, 0.9, 0.7])\nprint(a[:, v.T > 0.5])\nv = v.reshape(-1, 1)\nprint(a[:, v.ravel() > 0.5])\n",
-      "note": "The first call uses a one-dimensional vector. For an actual two-dimensional column vector, ravel() gives a one-dimensional column mask."
+      "note": "The first call uses a one-dimensional vector. For a two-dimensional column vector, ravel() produces a one-dimensional column mask."
     },
     {
       "row": 28,
@@ -258,7 +258,7 @@
       "row": 43,
       "title": "Random values with a fixed seed",
       "code": "from numpy.random import default_rng\nrng = default_rng(42)\nprint(rng.random((3, 4)))\nfrom numpy import random\nrandom.seed(42)\ntry:\n    random.rand((3, 4))\nexcept TypeError as error:\n    print(type(error).__name__ + \": \" + str(error))\nprint(random.rand(3, 4))\n",
-      "note": "The older call in the table passes a tuple to rand, which expects separate dimension arguments. The corrected call is random.rand(3, 4). The two generators use different random streams."
+      "note": "The table passes a tuple to rand, which expects separate dimension arguments. The working call is random.rand(3, 4). The two generators use different random streams."
     },
     {
       "row": 44,
@@ -276,7 +276,7 @@
       "row": 46,
       "title": "Open coordinate grids",
       "code": "print(np.ogrid[0:9., 0:6.])\nprint(np.ix_(np.r_[0:9.], np.r_[0:6.]))\n",
-      "note": "The table omits the closing parenthesis in its ix_ call. The calls here include the np namespace and the missing parenthesis."
+      "note": "The table's ix_ call is missing a closing parenthesis. The example includes it."
     },
     {
       "row": 47,
@@ -426,7 +426,7 @@
       "row": 71,
       "title": "QR factorization",
       "code": "a = rect.copy()\nQ, R = linalg.qr(a)\nprint(Q)\nprint(R)\nQ, R = linalg.qr(a, mode=\"economic\")\nprint(Q)\nprint(R)\n",
-      "note": "The first call runs the table entry. The economic form also matches the dimensions requested by MATLAB qr(a, 0)."
+      "note": "The economic form matches the dimensions requested by MATLAB qr(a, 0)."
     },
     {
       "row": 72,
@@ -456,7 +456,7 @@
       "row": 76,
       "title": "Default sorting and column sorting",
       "code": "a = small.copy()\nprint(np.sort(a))\na.sort(axis=0)\nprint(a)\n",
-      "note": "The table lists these as alternatives, but np.sort(a) sorts along the last axis by default. The in-place axis=0 call sorts each column."
+      "note": "np.sort(a) sorts along the last axis by default. The in-place axis=0 call sorts each column."
     },
     {
       "row": 77,
@@ -480,7 +480,7 @@
       "row": 80,
       "title": "Fourier resampling",
       "code": "t = np.arange(12.) / 12\nx = np.sin(2 * np.pi * t)\nq = 3\ntry:\n    signal.resample(x, np.ceil(len(x)/q))\nexcept TypeError as error:\n    print(type(error).__name__ + \": \" + str(error))\nprint(signal.resample(x, int(np.ceil(len(x)/q))))\n",
-      "note": "resample requires an integer output length. It uses Fourier resampling and assumes periodic input; it is not the same filtering algorithm as decimate."
+      "note": "resample requires an integer output length and assumes periodic input. It uses Fourier resampling; decimate uses a different filtering algorithm."
     },
     {
       "row": 81,

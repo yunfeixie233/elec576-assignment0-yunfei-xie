@@ -47,15 +47,13 @@ the report. Any matrices may be used.
 
 \solution
 I ran all 82 rows of the linked table in an IPython kernel, including
-the alternative commands listed within a row \cite{numpy}.
-The inputs below use NumPy arrays. Array entries are displayed with up
-to six decimal places; the calculations use full floating-point precision.
-Each numbered entry follows the corresponding table row and includes
-its code and captured output.
+the alternative commands \cite{numpy}. Each entry follows the table's
+row order and includes its code and captured output. Array entries are
+displayed with up to six decimal places; calculations use full
+floating-point precision.
 
-The table has a few syntax and behavior differences in the installed
-versions. I show the errors from its older random-number and resampling
-calls, followed by working calls. The relevant entries also explain
+The random-number and resampling entries show the errors from the
+table's calls, followed by working calls. Notes explain differences in
 Boolean-mask shape, grid orientation, and sorting axes.
 
 \subsection*{Shared inputs}
@@ -281,7 +279,7 @@ factorization and conjugate gradients.
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
 \subsection*{2.27 Select columns using a Boolean mask}
-The first call uses a one-dimensional vector. For an actual two-dimensional column vector, ravel() gives a one-dimensional column mask.
+The first call uses a one-dimensional vector. For a two-dimensional column vector, ravel() produces a one-dimensional column mask.
 
 \noindent\texttt{In [29]:}
 \lstinputlisting[language=Python]{snippets/task2-27.py}
@@ -417,7 +415,7 @@ The default traversal reads rows first. The F option reads columns first, matchi
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
 \subsection*{2.43 Random values with a fixed seed}
-The older call in the table passes a tuple to rand, which expects separate dimension arguments. The corrected call is random.rand(3, 4). The two generators use different random streams.
+The table passes a tuple to rand, which expects separate dimension arguments. The working call is random.rand(3, 4). The two generators use different random streams.
 
 \noindent\texttt{In [45]:}
 \lstinputlisting[language=Python]{snippets/task2-43.py}
@@ -445,7 +443,7 @@ mgrid returns arrays shaped (9, 6); meshgrid uses (6, 9) with its default xy ind
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
 \subsection*{2.46 Open coordinate grids}
-The table omits the closing parenthesis in its ix\_ call. The calls here include the np namespace and the missing parenthesis.
+The table's ix\_ call is missing a closing parenthesis. The example includes it.
 
 \noindent\texttt{In [48]:}
 \lstinputlisting[language=Python]{snippets/task2-46.py}
@@ -661,7 +659,7 @@ The fixed starting vector makes the iterative calculation reproducible. The thre
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
 \subsection*{2.71 QR factorization}
-The first call runs the table entry. The economic form also matches the dimensions requested by MATLAB qr(a, 0).
+The economic form matches the dimensions requested by MATLAB qr(a, 0).
 
 \noindent\texttt{In [73]:}
 \lstinputlisting[language=Python]{snippets/task2-71.py}
@@ -707,7 +705,7 @@ The matrix is symmetric positive definite. A status of zero indicates convergenc
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
 \subsection*{2.76 Default sorting and column sorting}
-The table lists these as alternatives, but np.sort(a) sorts along the last axis by default. The in-place axis=0 call sorts each column.
+np.sort(a) sorts along the last axis by default. The in-place axis=0 call sorts each column.
 
 \noindent\texttt{In [78]:}
 \lstinputlisting[language=Python]{snippets/task2-76.py}
@@ -743,7 +741,7 @@ The fitted line has intercept 7/6 and slope 1/2. The first item of the returned 
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
 \subsection*{2.80 Fourier resampling}
-resample requires an integer output length. It uses Fourier resampling and assumes periodic input; it is not the same filtering algorithm as decimate.
+resample requires an integer output length and assumes periodic input. It uses Fourier resampling; decimate uses a different filtering algorithm.
 
 \noindent\texttt{In [82]:}
 \lstinputlisting[language=Python]{snippets/task2-80.py}
@@ -772,12 +770,11 @@ resample requires an integer output length. It uses Fourier resampling and assum
 Go through the Stanford NumPy tutorial for additional practice.
 
 \solution
-I used broadcasting to compute the distances between three points,
-then practiced reductions, Boolean indexing, and the distinction
-between a slice and a copy \cite{stanford}. The distances between
-$(0,0)$, $(3,4)$, and $(0,4)$ are $5$, $4$, and $3$, respectively.
-Changing a slice changes the original array, while its copy keeps
-the values it had when it was created.
+I used broadcasting to compute pairwise distances between $(0,0)$,
+$(3,4)$, and $(0,4)$, then practiced reductions, Boolean indexing,
+and copying \cite{stanford}. The three distances are $5$, $4$, and $3$.
+Changing a slice changes the original array; changing a copy leaves
+the original unchanged.
 \noindent\texttt{In [85]:}
 \lstinputlisting[language=Python]{snippets/optional-numpy.py}
 \noindent\texttt{Output:}
@@ -795,8 +792,7 @@ plt.show()
 \end{lstlisting}
 
 \solution
-The script produces the figure below. The line passes through
-$(1,1)$, $(2,2)$, $(3,7)$, and $(4,14)$. The horizontal limits are
+The line passes through $(1,1)$, $(2,2)$, $(3,7)$, and $(4,14)$. The horizontal limits are
 $0$ and $6$, and the vertical limits are $0$ and $20$.
 \begin{center}
 \includegraphics[width=0.94\textwidth]{figures/task3.png}
@@ -815,7 +811,7 @@ I plotted the damped oscillation
 \]
 The oscillation has a frequency of $1.5$ Hz. The dashed curves
 $-e^{-0.7t}$ and $e^{-0.7t}$ bound the signal; their magnitudes decrease
-as time increases. The code is
+as time increases.
 \lstinputlisting[language=Python]{snippets/task4.py}
 \begin{center}
 \includegraphics[width=0.96\textwidth]{figures/task4.png}
@@ -843,11 +839,9 @@ public repository
 \begin{center}
 \url{https://github.com/yunfeixie233/elec576-assignment0-yunfei-xie}.
 \end{center}
-The repository contains the executed notebook, Python source files,
-figures, and saved results. The README gives the commands to recreate
-the notebook and run the numerical checks. Those checks verify array
-operations, matrix factorizations, linear-system residuals, Fourier
-transforms, and the plotted data.
+The repository contains the report, executed notebook, and Python
+source files with their figures and results. The README gives the
+commands to run the code and numerical checks.
 
 \begin{thebibliography}{9}
 \bibitem{assignment}

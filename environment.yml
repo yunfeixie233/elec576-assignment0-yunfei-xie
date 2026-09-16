@@ -1,0 +1,13 @@
+name: elec576-assignment0
+channels:
+  - defaults
+dependencies:
+  - python=3.14
+  - numpy=2.4
+  - scipy=1.18
+  - matplotlib=3.11
+  - ipython=9.15
+  - ipykernel=6.31
+  - nbclient=0.11
+  - nbformat=5.10
+  - jupyterlab

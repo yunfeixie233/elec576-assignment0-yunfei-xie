@@ -1,0 +1,498 @@
+{
+  "source": "https://numpy.org/doc/stable/user/numpy-for-matlab-users.html#linear-algebra-equivalents",
+  "setup": "import numpy as np\nimport scipy\nimport scipy.linalg\nfrom scipy import linalg, signal\nfrom scipy.sparse.linalg import cg, eigs\nfrom numpy.random import default_rng\nnp.set_printoptions(precision=6, suppress=True, linewidth=76, threshold=10000)\nsmall = np.array([[3., 1.], [2., 4.]])\nother = np.array([[2., 3.], [5., 2.]])\nscan = np.arange(1., 46.).reshape(5, 9)\nthreshold = np.array([[0.2, 0.7, 0.5], [0.9, 0.4, 0.8]])\ncomplex_matrix = np.array([[1+2j, 3-1j], [2j, 4+0j]])\nspd = np.array([[6., 2., 1.], [2., 5., 2.], [1., 2., 4.]])\nrect = np.array([[1., 0.], [1., 1.], [1., 2.]])\nfor name in ['small', 'other', 'scan', 'threshold', 'complex_matrix', 'spd', 'rect']:\n    print(name + ' =')\n    print(globals()[name])\n",
+  "examples": [
+    {
+      "row": 1,
+      "title": "Dimensions",
+      "code": "a = small.copy()\nprint(np.ndim(a))\nprint(a.ndim)\n",
+      "note": ""
+    },
+    {
+      "row": 2,
+      "title": "Number of elements",
+      "code": "a = small.copy()\nprint(np.size(a))\nprint(a.size)\n",
+      "note": ""
+    },
+    {
+      "row": 3,
+      "title": "Array shape",
+      "code": "a = small.copy()\nprint(np.shape(a))\nprint(a.shape)\n",
+      "note": ""
+    },
+    {
+      "row": 4,
+      "title": "Length of one axis",
+      "code": "a = scan.copy()\nn = 2\nprint(a.shape[n-1])\n",
+      "note": ""
+    },
+    {
+      "row": 5,
+      "title": "Create an array",
+      "code": "a = np.array([[1., 2., 3.], [4., 5., 6.]])\nprint(a)\n",
+      "note": ""
+    },
+    {
+      "row": 6,
+      "title": "Assemble blocks",
+      "code": "a, b = small.copy(), other.copy()\nc, d = np.eye(2), np.zeros((2, 2))\nprint(np.block([[a, b], [c, d]]))\n",
+      "note": ""
+    },
+    {
+      "row": 7,
+      "title": "Last vector entry",
+      "code": "a = np.array([4., 9., 16.])\nprint(a[-1])\n",
+      "note": ""
+    },
+    {
+      "row": 8,
+      "title": "One matrix entry",
+      "code": "a = scan.copy()\nprint(a[1, 4])\n",
+      "note": ""
+    },
+    {
+      "row": 9,
+      "title": "One row",
+      "code": "a = scan.copy()\nprint(a[1])\nprint(a[1, :])\n",
+      "note": ""
+    },
+    {
+      "row": 10,
+      "title": "First five rows",
+      "code": "a = scan.copy()\nprint(a[0:5])\nprint(a[:5])\nprint(a[0:5, :])\n",
+      "note": ""
+    },
+    {
+      "row": 11,
+      "title": "Last five rows",
+      "code": "a = np.arange(1., 15.).reshape(7, 2)\nprint(a)\nprint(a[-5:])\n",
+      "note": ""
+    },
+    {
+      "row": 12,
+      "title": "A rectangular slice",
+      "code": "a = scan.copy()\nprint(a[0:3, 4:9])\n",
+      "note": ""
+    },
+    {
+      "row": 13,
+      "title": "Selected rows and columns",
+      "code": "a = scan.copy()\nprint(a[np.ix_([1, 3, 4], [0, 2])])\n",
+      "note": ""
+    },
+    {
+      "row": 14,
+      "title": "Rows 3 through 21 with a stride of two",
+      "code": "a = np.arange(1., 22.).reshape(21, 1)\nprint(a[2:21:2, :])\n",
+      "note": ""
+    },
+    {
+      "row": 15,
+      "title": "Every other row",
+      "code": "a = scan.copy()\nprint(a[::2, :])\n",
+      "note": ""
+    },
+    {
+      "row": 16,
+      "title": "Reverse the rows",
+      "code": "a = small.copy()\nprint(a[::-1, :])\n",
+      "note": ""
+    },
+    {
+      "row": 17,
+      "title": "Append the first row",
+      "code": "a = small.copy()\nprint(a[np.r_[:len(a), 0]])\n",
+      "note": ""
+    },
+    {
+      "row": 18,
+      "title": "Transpose",
+      "code": "a = small.copy()\nprint(a.transpose())\nprint(a.T)\n",
+      "note": ""
+    },
+    {
+      "row": 19,
+      "title": "Conjugate transpose",
+      "code": "a = complex_matrix.copy()\nprint(a.conj().transpose())\nprint(a.conj().T)\n",
+      "note": ""
+    },
+    {
+      "row": 20,
+      "title": "Matrix multiplication",
+      "code": "a, b = small.copy(), other.copy()\nprint(a @ b)\n",
+      "note": ""
+    },
+    {
+      "row": 21,
+      "title": "Elementwise multiplication",
+      "code": "a, b = small.copy(), other.copy()\nprint(a * b)\n",
+      "note": ""
+    },
+    {
+      "row": 22,
+      "title": "Elementwise division",
+      "code": "a, b = small.copy(), other.copy()\nprint(a / b)\n",
+      "note": ""
+    },
+    {
+      "row": 23,
+      "title": "Elementwise powers",
+      "code": "a = small.copy()\nprint(a**3)\n",
+      "note": ""
+    },
+    {
+      "row": 24,
+      "title": "A Boolean comparison",
+      "code": "a = threshold.copy()\nprint(a > 0.5)\n",
+      "note": ""
+    },
+    {
+      "row": 25,
+      "title": "Indices satisfying a condition",
+      "code": "a = threshold.copy()\nprint(np.nonzero(a > 0.5))\n",
+      "note": ""
+    },
+    {
+      "row": 26,
+      "title": "Select columns using index positions",
+      "code": "a = threshold.copy()\nv = np.array([0.3, 0.9, 0.7])\nprint(a[:, np.nonzero(v > 0.5)[0]])\n",
+      "note": ""
+    },
+    {
+      "row": 27,
+      "title": "Select columns using a Boolean mask",
+      "code": "a = threshold.copy()\nv = np.array([0.3, 0.9, 0.7])\nprint(a[:, v.T > 0.5])\nv = v.reshape(-1, 1)\nprint(a[:, v.ravel() > 0.5])\n",
+      "note": "The first call uses a one-dimensional vector. For an actual two-dimensional column vector, ravel() gives a one-dimensional column mask."
+    },
+    {
+      "row": 28,
+      "title": "Replace entries below a threshold",
+      "code": "a = threshold.copy()\na[a < 0.5] = 0\nprint(a)\n",
+      "note": ""
+    },
+    {
+      "row": 29,
+      "title": "Multiply by a strict Boolean mask",
+      "code": "a = threshold.copy()\nprint(a * (a > 0.5))\n",
+      "note": "The entry equal to 0.5 becomes zero here. It remains 0.5 in the previous example because that assignment tests a < 0.5."
+    },
+    {
+      "row": 30,
+      "title": "Fill an array",
+      "code": "a = small.copy()\na[:] = 3\nprint(a)\n",
+      "note": ""
+    },
+    {
+      "row": 31,
+      "title": "Copy an array",
+      "code": "x = small.copy()\ny = x.copy()\ny[0, 0] = 99\nprint(y)\nprint(x)\n",
+      "note": "Changing the copy leaves x unchanged."
+    },
+    {
+      "row": 32,
+      "title": "Copy a row",
+      "code": "x = small.copy()\ny = x[1, :].copy()\ny[0] = 99\nprint(y)\nprint(x)\n",
+      "note": ""
+    },
+    {
+      "row": 33,
+      "title": "Flatten an array",
+      "code": "x = small.copy()\ny = x.flatten()\nprint(y)\nprint(x.flatten(\"F\"))\n",
+      "note": "The default traversal reads rows first. The F option reads columns first, matching MATLAB linear indexing."
+    },
+    {
+      "row": 34,
+      "title": "The values 1 through 10",
+      "code": "print(np.arange(1., 11.))\nprint(np.r_[1.:11.])\nprint(np.r_[1:10:10j])\n",
+      "note": ""
+    },
+    {
+      "row": 35,
+      "title": "The values 0 through 9",
+      "code": "print(np.arange(10.))\nprint(np.r_[:10.])\nprint(np.r_[:9:10j])\n",
+      "note": ""
+    },
+    {
+      "row": 36,
+      "title": "A column vector",
+      "code": "print(np.arange(1., 11.)[:, np.newaxis])\n",
+      "note": ""
+    },
+    {
+      "row": 37,
+      "title": "A zero matrix",
+      "code": "print(np.zeros((3, 4)))\n",
+      "note": ""
+    },
+    {
+      "row": 38,
+      "title": "A three-dimensional zero array",
+      "code": "print(np.zeros((3, 4, 5)))\n",
+      "note": ""
+    },
+    {
+      "row": 39,
+      "title": "An array of ones",
+      "code": "print(np.ones((3, 4)))\n",
+      "note": ""
+    },
+    {
+      "row": 40,
+      "title": "An identity matrix",
+      "code": "print(np.eye(3))\n",
+      "note": ""
+    },
+    {
+      "row": 41,
+      "title": "Read a diagonal",
+      "code": "a = small.copy()\nprint(np.diag(a))\n",
+      "note": ""
+    },
+    {
+      "row": 42,
+      "title": "Construct a diagonal matrix",
+      "code": "v = np.array([2., 5., 8.])\nprint(np.diag(v, 0))\n",
+      "note": ""
+    },
+    {
+      "row": 43,
+      "title": "Random values with a fixed seed",
+      "code": "from numpy.random import default_rng\nrng = default_rng(42)\nprint(rng.random((3, 4)))\nfrom numpy import random\nrandom.seed(42)\ntry:\n    random.rand((3, 4))\nexcept TypeError as error:\n    print(type(error).__name__ + \": \" + str(error))\nprint(random.rand(3, 4))\n",
+      "note": "The older call in the table passes a tuple to rand, which expects separate dimension arguments. The corrected call is random.rand(3, 4). The two generators use different random streams."
+    },
+    {
+      "row": 44,
+      "title": "Evenly spaced values",
+      "code": "print(np.linspace(1, 3, 4))\n",
+      "note": ""
+    },
+    {
+      "row": 45,
+      "title": "Dense coordinate grids",
+      "code": "print(np.mgrid[0:9., 0:6.])\nprint(np.meshgrid(np.r_[0:9.], np.r_[0:6.]))\n",
+      "note": "mgrid returns arrays shaped (9, 6); meshgrid uses (6, 9) with its default xy indexing."
+    },
+    {
+      "row": 46,
+      "title": "Open coordinate grids",
+      "code": "print(np.ogrid[0:9., 0:6.])\nprint(np.ix_(np.r_[0:9.], np.r_[0:6.]))\n",
+      "note": "The table omits the closing parenthesis in its ix_ call. The calls here include the np namespace and the missing parenthesis."
+    },
+    {
+      "row": 47,
+      "title": "An irregular dense grid",
+      "code": "print(np.meshgrid([1, 2, 4], [2, 4, 5]))\n",
+      "note": ""
+    },
+    {
+      "row": 48,
+      "title": "An irregular open grid",
+      "code": "print(np.ix_([1, 2, 4], [2, 4, 5]))\n",
+      "note": ""
+    },
+    {
+      "row": 49,
+      "title": "Repeat a matrix",
+      "code": "a = small.copy()\nm, n = 2, 3\nprint(np.tile(a, (m, n)))\n",
+      "note": ""
+    },
+    {
+      "row": 50,
+      "title": "Join columns",
+      "code": "a, b = small.copy(), other.copy()\nprint(np.concatenate((a, b), 1))\nprint(np.hstack((a, b)))\nprint(np.column_stack((a, b)))\nprint(np.c_[a, b])\n",
+      "note": ""
+    },
+    {
+      "row": 51,
+      "title": "Join rows",
+      "code": "a, b = small.copy(), other.copy()\nprint(np.concatenate((a, b)))\nprint(np.vstack((a, b)))\nprint(np.r_[a, b])\n",
+      "note": ""
+    },
+    {
+      "row": 52,
+      "title": "Maximum over all entries",
+      "code": "a = small.copy()\nprint(a.max())\nprint(np.nanmax(a))\na[0, 0] = np.nan\nprint(a.max())\nprint(np.nanmax(a))\n",
+      "note": "nanmax ignores the inserted NaN, while max propagates it."
+    },
+    {
+      "row": 53,
+      "title": "Maximum in each column",
+      "code": "a = small.copy()\nprint(a.max(0))\n",
+      "note": ""
+    },
+    {
+      "row": 54,
+      "title": "Maximum in each row",
+      "code": "a = small.copy()\nprint(a.max(1))\n",
+      "note": ""
+    },
+    {
+      "row": 55,
+      "title": "Elementwise maximum",
+      "code": "a, b = small.copy(), other.copy()\nprint(np.maximum(a, b))\n",
+      "note": ""
+    },
+    {
+      "row": 56,
+      "title": "Euclidean norm",
+      "code": "v = np.array([3., 4.])\nprint(np.sqrt(v @ v))\nprint(np.linalg.norm(v))\n",
+      "note": ""
+    },
+    {
+      "row": 57,
+      "title": "Logical AND",
+      "code": "a = np.array([0, 2, 3, 0])\nb = np.array([1, 1, 0, 0])\nprint(np.logical_and(a, b))\n",
+      "note": ""
+    },
+    {
+      "row": 58,
+      "title": "Logical OR",
+      "code": "a = np.array([0, 2, 3, 0])\nb = np.array([1, 1, 0, 0])\nprint(np.logical_or(a, b))\n",
+      "note": ""
+    },
+    {
+      "row": 59,
+      "title": "Bitwise AND",
+      "code": "a = np.array([0, 2, 3, 0])\nb = np.array([1, 1, 0, 0])\nprint(a & b)\n",
+      "note": ""
+    },
+    {
+      "row": 60,
+      "title": "Bitwise OR",
+      "code": "a = np.array([0, 2, 3, 0])\nb = np.array([1, 1, 0, 0])\nprint(a | b)\n",
+      "note": ""
+    },
+    {
+      "row": 61,
+      "title": "Matrix inverse",
+      "code": "a = small.copy()\nprint(linalg.inv(a))\n",
+      "note": ""
+    },
+    {
+      "row": 62,
+      "title": "Pseudoinverse",
+      "code": "a = rect.copy()\nprint(linalg.pinv(a))\n",
+      "note": ""
+    },
+    {
+      "row": 63,
+      "title": "Matrix rank",
+      "code": "a = np.array([[1., 2., 3.], [2., 4., 6.], [1., 1., 1.]])\nprint(a)\nprint(np.linalg.matrix_rank(a))\n",
+      "note": ""
+    },
+    {
+      "row": 64,
+      "title": "Square and rectangular linear systems",
+      "code": "a = spd.copy()\nb = np.array([1., 2., 3.])\nprint(linalg.solve(a, b))\na = rect.copy()\nb = np.array([1., 2., 2.])\nprint(linalg.lstsq(a, b))\n",
+      "note": "lstsq returns the solution, residual sum of squares, rank, and singular values."
+    },
+    {
+      "row": 65,
+      "title": "A system with the unknown on the left",
+      "code": "a = small.copy()\nb = np.array([[1., 2.], [4., 3.]])\nx = linalg.solve(a.T, b.T).T\nprint(x)\nprint(x @ a)\n",
+      "note": "Transposing x a = b gives a.T x.T = b.T."
+    },
+    {
+      "row": 66,
+      "title": "Singular value decomposition",
+      "code": "a = rect.copy()\nU, S, Vh = linalg.svd(a)\nV = Vh.T\nprint(U)\nprint(S)\nprint(V)\n",
+      "note": "The inputs are real, so Vh.T gives V. A complex input would require Vh.conj().T."
+    },
+    {
+      "row": 67,
+      "title": "Cholesky factorization",
+      "code": "a = spd.copy()\nprint(linalg.cholesky(a))\n",
+      "note": "SciPy returns an upper triangular factor by default, so a = U.T @ U for this real matrix."
+    },
+    {
+      "row": 68,
+      "title": "Eigenvalues and eigenvectors",
+      "code": "a = spd.copy()\nD, V = linalg.eig(a)\nprint(D)\nprint(V)\n",
+      "note": ""
+    },
+    {
+      "row": 69,
+      "title": "Generalized eigenvalues",
+      "code": "a = spd.copy()\nb = np.diag([1., 2., 3.])\nD, V = linalg.eig(a, b)\nprint(D)\nprint(V)\n",
+      "note": "Each column v satisfies a @ v = lambda * b @ v."
+    },
+    {
+      "row": 70,
+      "title": "Three eigenpairs of a larger matrix",
+      "code": "a = np.diag([2., 3., 5., 7., 11., 13.])\nD, V = eigs(a, k=3, v0=np.ones(6))\nprint(D)\nprint(V)\n",
+      "note": "The fixed starting vector makes the iterative calculation reproducible. The three largest magnitudes are 13, 11, and 7."
+    },
+    {
+      "row": 71,
+      "title": "QR factorization",
+      "code": "a = rect.copy()\nQ, R = linalg.qr(a)\nprint(Q)\nprint(R)\nQ, R = linalg.qr(a, mode=\"economic\")\nprint(Q)\nprint(R)\n",
+      "note": "The first call runs the table entry. The economic form also matches the dimensions requested by MATLAB qr(a, 0)."
+    },
+    {
+      "row": 72,
+      "title": "LU factorization",
+      "code": "a = small.copy()\nP, L, U = linalg.lu(a)\nprint(P)\nprint(L)\nprint(U)\nprint(P @ L @ U)\n",
+      "note": "SciPy uses a = P @ L @ U."
+    },
+    {
+      "row": 73,
+      "title": "Conjugate gradients",
+      "code": "a = spd.copy()\nb = np.array([1., 2., 3.])\nx, info = cg(a, b, rtol=1e-12, atol=0.0)\nprint(x)\nprint(info)\n",
+      "note": "The matrix is symmetric positive definite. A status of zero indicates convergence."
+    },
+    {
+      "row": 74,
+      "title": "Discrete Fourier transform",
+      "code": "a = np.array([1., 2., 3., 4.])\nprint(np.fft.fft(a))\n",
+      "note": ""
+    },
+    {
+      "row": 75,
+      "title": "Inverse Fourier transform",
+      "code": "a = np.fft.fft(np.array([1., 2., 3., 4.]))\nprint(np.fft.ifft(a))\n",
+      "note": ""
+    },
+    {
+      "row": 76,
+      "title": "Default sorting and column sorting",
+      "code": "a = small.copy()\nprint(np.sort(a))\na.sort(axis=0)\nprint(a)\n",
+      "note": "The table lists these as alternatives, but np.sort(a) sorts along the last axis by default. The in-place axis=0 call sorts each column."
+    },
+    {
+      "row": 77,
+      "title": "Sort each row",
+      "code": "a = small.copy()\nprint(np.sort(a, axis=1))\na.sort(axis=1)\nprint(a)\n",
+      "note": ""
+    },
+    {
+      "row": 78,
+      "title": "Sort rows by their first entry",
+      "code": "a = np.array([[3., 1.], [1., 4.], [2., 0.]])\nI = np.argsort(a[:, 0])\nb = a[I, :]\nprint(I)\nprint(b)\n",
+      "note": ""
+    },
+    {
+      "row": 79,
+      "title": "Linear regression",
+      "code": "Z = rect.copy()\ny = np.array([1., 2., 2.])\nx = linalg.lstsq(Z, y)\nprint(x)\nprint(Z @ x[0])\n",
+      "note": "The fitted line has intercept 7/6 and slope 1/2. The first item of the returned tuple contains those coefficients."
+    },
+    {
+      "row": 80,
+      "title": "Fourier resampling",
+      "code": "t = np.arange(12.) / 12\nx = np.sin(2 * np.pi * t)\nq = 3\ntry:\n    signal.resample(x, np.ceil(len(x)/q))\nexcept TypeError as error:\n    print(type(error).__name__ + \": \" + str(error))\nprint(signal.resample(x, int(np.ceil(len(x)/q))))\n",
+      "note": "resample requires an integer output length. It uses Fourier resampling and assumes periodic input; it is not the same filtering algorithm as decimate."
+    },
+    {
+      "row": 81,
+      "title": "Unique values",
+      "code": "a = np.array([4, 1, 4, 2, 1, 3])\nprint(np.unique(a))\n",
+      "note": ""
+    },
+    {
+      "row": 82,
+      "title": "Remove axes of length one",
+      "code": "a = np.array([[[2., 4., 6.]]])\nprint(a.shape)\nprint(a.squeeze())\nprint(a.squeeze().shape)\n",
+      "note": ""
+    }
+  ]
+}

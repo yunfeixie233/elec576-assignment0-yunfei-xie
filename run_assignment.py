@@ -81,6 +81,9 @@ def execute():
     (ROOT / "notebooks").mkdir(exist_ok=True)
     (ROOT / "results").mkdir(exist_ok=True)
     (ROOT / "figures").mkdir(exist_ok=True)
+    notebook.metadata["kernelspec"] = {
+        "name": "python3", "display_name": "Python 3 (ipykernel)", "language": "python"
+    }
     nbformat.write(notebook, ROOT / "notebooks/assignment0.ipynb")
     records = []
     for cell in notebook.cells:
